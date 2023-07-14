@@ -62,7 +62,6 @@ extern "C" {
 /// \defgroup constants Some useful general constants
 // ======================================================================
 //@{
-const double PI    = 3.14159265358979323846;	///< pi
 const double PI05  = 1.57079632679489661923;	///< pi/2
 const double PI2   = 6.28318530717958647693;	///< pi*2
 const double RAD   = PI / 180;      ///< factor to map degrees to radians
