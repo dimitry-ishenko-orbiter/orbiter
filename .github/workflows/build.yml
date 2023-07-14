@@ -3,11 +3,11 @@ name: Build
 on:
   push:
     branches:
-      - main
+      - next
     paths-ignore: [ 'Doc/**', 'Flights/**', 'Html/**', 'Images/**', 'Localdoc/**', 'Scenarios/**', 'Textures/**', 'Textures2/**']
   pull_request:
     branches:
-      - main
+      - next
     paths-ignore: [ 'Doc/**', 'Flights/**', 'Html/**', 'Images/**', 'Localdoc/**', 'Scenarios/**', 'Textures/**', 'Textures2/**']
 
 jobs:
@@ -78,13 +78,13 @@ jobs:
       run: cmake --install . --prefix ${{ github.workspace }}/out/install
 
     - name: Pack
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/next' }}
       working-directory: ${{ github.workspace }}/out/install/Orbiter
       shell: cmd
       run: '7z a "${{ github.workspace }}/out/Orbiter.zip" .'
 
     - name: Upload Build Artifact
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: ${{ github.ref == 'refs/heads/next' }}
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Orbiter-${{ matrix.architecture }}
@@ -99,7 +99,7 @@ jobs:
     
     runs-on: ubuntu-latest
     
-    if: ${{ github.ref == 'refs/heads/main' }}
+    if: ${{ github.ref == 'refs/heads/next' }}
 
     steps:
     - name: Create directories
