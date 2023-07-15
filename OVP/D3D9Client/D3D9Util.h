@@ -78,8 +78,6 @@ const char *_PTR(const void *p);
 #define HROK(x)	_HROK(x, __FILE__, __LINE__)
 #endif
 
-#define PI 3.141592653589793238462643383279
-
 #define SURFACE(x) ((class SurfNative *)x)
 
 // helper function to get address of a temporary
