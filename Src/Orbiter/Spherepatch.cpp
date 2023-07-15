@@ -509,7 +509,7 @@ void PatchManager::SetupPatchBand (int ilat, D3DMATRIX *trans, VECTOR3 *pcnt, do
 	sofs = nofs + npatch/2;
 
 	D3DMATRIX south;
-	VMAT_rotx (south, Pi);
+	VMAT_rotx(south, PI);
 
 	lat1 = Pi05 * (double)ilat/(double)nlat;
 	lat2 = Pi05 * (double)(ilat+1)/(double)nlat;
@@ -517,7 +517,7 @@ void PatchManager::SetupPatchBand (int ilat, D3DMATRIX *trans, VECTOR3 *pcnt, do
 	slat2 = sin(lat2), clat2 = cos(lat2);
 
 	for (i = 0; i < nl; i++) {
-		lng1  = Pi2 * (double)i/(double)nl + Pi; // subtract Pi so texture wraps at +- 180°
+		lng1  = Pi2 * i / nl + PI; // subtract Pi so texture wraps at +- 180°
 		lng2  = lng1 + Pi2/(double)nl;
 		slng1 = sin(lng1), clng1 = cos(lng1);
 		slng2 = sin(lng2), clng2 = cos(lng2);
@@ -767,7 +767,7 @@ void CreateSphere (LPDIRECT3D7 d3d, LPDIRECT3DDEVICE7 dev, VBMESH &mesh, DWORD n
 	WORD *idx = Idx;
 
 	// Angle deltas for constructing the sphere's vertices
-    FLOAT fDAng   = (FLOAT)Pi / nrings;
+    float fDAng   = PI / nrings;
     FLOAT fDAngY0 = fDAng;
 	DWORD x1 = (hemisphere ? nrings : nrings*2);
 	DWORD x2 = x1+1;
@@ -778,11 +778,11 @@ void CreateSphere (LPDIRECT3D7 d3d, LPDIRECT3DDEVICE7 dev, VBMESH &mesh, DWORD n
     for (y = 0; y < nrings; y++) {
         FLOAT y0 = (FLOAT)cos(fDAngY0);
         FLOAT r0 = (FLOAT)sin(fDAngY0);
-		FLOAT tv = fDAngY0/(FLOAT)Pi;
+		float tv = fDAngY0 / PI;
 
         for (x = 0; x < x2; x++) {
-            FLOAT fDAngX0 = x*fDAng - (FLOAT)Pi;  // subtract Pi to wrap at +-180°
-			if (hemisphere && which_half) fDAngX0 += (FLOAT)Pi;
+			float fDAngX0 = x * fDAng - PI;  // subtract Pi to wrap at +-180°
+			if (hemisphere && which_half) fDAngX0 += PI;
 
 			D3DVECTOR v( r0*(FLOAT)cos(fDAngX0), y0, r0*(FLOAT)sin(fDAngX0) );
 			FLOAT tu = a*(FLOAT)x + du;
@@ -1324,7 +1324,7 @@ static void CreateRing (Mesh &mesh, float irad, float orad, int nsect)
 	NTVERTEX  *Vtx = new NTVERTEX[nVtx = 2*nsect]; TRACENEW
 	WORD      *Idx = new WORD[nIdx = 6*nsect]; TRACENEW
 
-	double alpha = Pi/(double)nsect;
+	double alpha = PI / nsect;
 	float nrad = orad/(float)cos(alpha); // distance for outer nodes
 	//float fac = (nrad-irad)*(float)sin(alpha)/(2.0*sqrt(nrad*nrad-orad*orad));
 	float fo = 0.5f*(1.0f-orad/nrad);

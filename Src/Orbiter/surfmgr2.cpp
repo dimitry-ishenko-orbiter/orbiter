@@ -548,8 +548,8 @@ void SurfTile::Render ()
 		TileManager2<CloudTile> *cmgr = smgr->prm.cloudmgr;
 		int nlng = 2 << lvl;
 		int nlat = 1 << lvl;
-		double minlat = Pi * (double)(nlat/2-ilat-1)/(double)nlat;
-		double maxlat = Pi * (double)(nlat/2-ilat)/(double)nlat;
+		double minlat = PI * (nlat / 2 - ilat - 1) / nlat;
+		double maxlat = PI * (nlat / 2 - ilat) / nlat;
 		double minlng = Pi2 * (double)(ilng-nlng/2)/(double)nlng;
 		double maxlng = Pi2 * (double)(ilng-nlng/2+1)/(double)nlng;
 
@@ -586,7 +586,7 @@ void SurfTile::Render ()
 
 						cminlng -= mgr->prm.cloudrot;
 						cmaxlng -= mgr->prm.cloudrot;
-						if (cmaxlng < -Pi) {
+						if (cmaxlng < -PI) {
 							cminlng += Pi2;
 							cmaxlng += Pi2;
 						}

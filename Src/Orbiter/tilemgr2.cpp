@@ -122,8 +122,8 @@ VECTOR3 Tile::Centre () const
 	if (lvl >= 0) {
 		int nlat = 1 << lvl;
 		int nlng = 2 << lvl;
-		double cntlat = Pi05 - Pi * ((double)ilat + 0.5) / (double)nlat, slat = sin(cntlat), clat = cos(cntlat);
-		double cntlng = Pi2  * ((double)ilng + 0.5) / (double)nlng + Pi, slng = sin(cntlng), clng = cos(cntlng);
+		double cntlat = Pi05 - PI * (ilat + 0.5) / nlat, slat = std::sin(cntlat), clat = std::cos(cntlat);
+		double cntlng = Pi2  * (ilng + 0.5) / nlng + PI, slng = std::sin(cntlng), clng = std::cos(cntlng);
 		return {clat * clng, slat, clat * slng};
 	}
 	else {
@@ -138,8 +138,8 @@ void Tile::Extents (double *latmin, double *latmax, double *lngmin, double *lngm
 {
 	int nlat = 1 << lvl;
 	int nlng = 2 << lvl;
-	*latmin = Pi * (0.5 - (double)(ilat+1)/(double)nlat);
-	*latmax = Pi * (0.5 - (double)ilat/(double)nlat);
+	*latmin = PI * (0.5 - (ilat + 1.0) / nlat);
+	*latmax = PI * (0.5 - double(ilat) / nlat);
 	//*latmin = Pi * (double)(nlat/2-ilat-1)/(double)nlat;
 	//*latmax = Pi * (double)(nlat/2-ilat)/(double)nlat;
 	*lngmin = Pi2 * (double)(ilng-nlng/2)/(double)nlng;
@@ -159,8 +159,8 @@ VBMESH *Tile::CreateMesh_quadpatch (int grdlat, int grdlng, INT16 *elev, double 
 	bool north = (ilat < nlat/2);
 
 	double lat, slat, clat, lng, slng, clng, eradius, dx, dy;
-	double maxlat = Pi * (0.5 - (double)ilat / (double)nlat);
-	double minlat = maxlat - Pi / (double)nlat;
+	double maxlat = PI * (0.5 - double(ilat) / nlat);
+	double minlat = maxlat - PI / nlat;
 	double minlng = 0;
 	double maxlng = Pi2/(double)nlng;
 	double radius = (mgr->Cbody() ? mgr->Cbody()->Size() : 1.0);
@@ -299,7 +299,7 @@ VBMESH *Tile::CreateMesh_quadpatch (int grdlat, int grdlng, INT16 *elev, double 
 		const double shade_exaggerate = 1.0; // 1 = normal, <1 = more dramatic landscape shadows
 		double dy, dz, dydz, nz_x, ny_x, nx1, ny1, nz1;
 		int en;
-		dy = radius * Pi/(nlat*grdlat);  // y-distance between vertices
+		dy = radius * PI / (nlat * grdlat);  // y-distance between vertices
 		ny_x = shade_exaggerate*dy;
 		for (i = n = 0; i <= grdlat; i++) {
 			lat = minlat + (maxlat-minlat) * (double)i/(double)grdlat;
@@ -399,8 +399,8 @@ VBMESH *Tile::CreateMesh_tripatch (int grd, INT16 *elev, bool shift_origin, VECT
 	double lat, slat, clat, lng, slng, clng, dx, dy;
 	int i, j, n, nseg, nofs0, nofs1;
 	bool north = (ilat < nlat/2);
-	double minlat = Pi * (double)(nlat/2-ilat-1)/(double)nlat;
-	double maxlat = Pi * (double)(nlat/2-ilat)/(double)nlat;
+	double minlat = PI * (nlat / 2 - ilat - 1) / nlat;
+	double maxlat = PI * (nlat / 2 - ilat) / nlat;
 	double minlng = 0;
 	double maxlng = Pi2/(double)nlng;
 	double eradius, radius = mgr->cbody->Size();
@@ -564,7 +564,7 @@ VBMESH *Tile::CreateMesh_hemisphere (int grd, INT16 *elev, double globelev)
 	WORD *idx = Idx;
 
 	// Angle deltas for constructing the sphere's vertices
-    double fDAng   = Pi / grd;
+    double fDAng   = PI / grd;
     double lng, lat = fDAng;
 	DWORD x1 = grd;
 	DWORD x2 = x1+1;
@@ -574,11 +574,11 @@ VBMESH *Tile::CreateMesh_hemisphere (int grd, INT16 *elev, double globelev)
     // Make the middle of the sphere
     for (y = 1; y < grd; y++) {
 		slat = sin(lat), clat = cos(lat);
-		FLOAT tv = (D3DVALUE)(lat/Pi);
+		float tv = lat / PI;
 
         for (x = 0; x < x2; x++) {
-            lng = x*fDAng - Pi;  // subtract Pi to wrap at +-180°
-			if (ilng) lng += Pi;
+			lng = x * fDAng - PI;  // subtract Pi to wrap at +-180°
+			if (ilng) lng += PI;
 			slng = sin(lng), clng = cos(lng);
 			eradius = radius + globelev; // radius including node elevation
 			if (elev) eradius += (double)elev[(grd+1-y)*TILE_ELEVSTRIDE + x+1];
@@ -669,16 +669,16 @@ VBMESH *Tile::CreateMesh_hemisphere (int grd, INT16 *elev, double globelev)
 	if (elev) {
 		double dy, dz, dydz, nx1, ny1, nz1;
 		int en;
-		dy = radius * Pi/grd;  // y-distance between vertices
+		dy = radius * PI / grd; // y-distance between vertices
 		vtx = Vtx;
 		for (y = 1; y < grd; y++) {
 			lat = Pi05-y*fDAng;
 			slat = sin(lat), clat = cos(lat);
-			dz = radius * Pi*cos(lat) / grd; // z-distance between vertices on unit sphere
+			dz = radius * PI * std::cos(lat) / grd; // z-distance between vertices on unit sphere
 			dydz = dy*dz;
 			for (x = 0; x < x2; x++) {
 				lng = x*fDAng;
-				if (!ilng) lng -= Pi;
+				if (!ilng) lng -= PI;
 				slng = sin(lng), clng = cos(lng);
 				en = (grd+1-y)*TILE_ELEVSTRIDE + x+1;
 				nml = unit(VECTOR3{2.0 * dydz,
@@ -952,7 +952,7 @@ MATRIX4 TileManager2Base::WorldMatrix (int ilng, int nlng, int ilat, int nlat)
 		return prm.dwmat;
 	}
 
-	double lat, lng = Pi2 * (double)ilng/(double)nlng + Pi; // add pi so texture wraps at +-180°
+	double lat, lng = Pi2 * ilng / nlng + PI; // add pi so texture wraps at +-180°
 	double slng = sin(lng), clng = cos(lng);
 	MATRIX4 lrot = {clng,0,slng,0,  0,1.0,0,0,  -slng,0,clng,0,  0,0,0,1.0};
 
@@ -960,8 +960,8 @@ MATRIX4 TileManager2Base::WorldMatrix (int ilng, int nlng, int ilat, int nlat)
 		return mul(lrot,prm.dwmat);
 	} else {          // shift, scale and rotate
 		bool north = (ilat < nlat/2);
-		if (north) lat = Pi * (double)(nlat/2-ilat-1)/(double)nlat;
-		else       lat = Pi * (double)(nlat/2-ilat)/(double)nlat;
+		if (north) lat = PI * (nlat / 2 - ilat - 1) / nlat;
+		else       lat = PI * (nlat / 2 - ilat) / nlat;
 		double s = cbody->Size();
 		double dx = s*cos(lng)*cos(lat); // the offsets between sphere centre and tile corner
 		double dy = s*sin(lat);

@@ -171,7 +171,7 @@ HANDLE hConsoleMutex = 0;
 int _matherr(struct _exception *except )
 {
 	if (!strcmp (except->name, "acos")) {
-		except->retval = (except->arg1 < 0.0 ? Pi : 0.0);
+		except->retval = (except->arg1 < 0.0 ? PI : 0.0);
 		return 1;
 	}
 	return 0;

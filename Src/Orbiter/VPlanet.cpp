@@ -735,7 +735,7 @@ int VPlanet::ShadowPlanetOnRing (VERTEX_XYZC *&vtx, DWORD &nvtx)
 	}
 	if (!nvtx) return 0;
 
-	double phi = atan2 (spos.z,spos.x) + Pi;
+	double phi = std::atan2(spos.z, spos.x) + PI;
 	double cosp = cos (phi), sinp = sin (phi);
 
 	double dtheta = atan(y/x)/nn; // angular sampling steps on the inner rim

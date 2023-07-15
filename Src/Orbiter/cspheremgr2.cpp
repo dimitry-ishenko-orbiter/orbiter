@@ -170,7 +170,7 @@ template<>
 inline MATRIX4 CsphereManager::WorldMatrix(int ilng, int nlng, int ilat, int nlat)
 {
 
-	double lat, lng = Pi2 * (double)ilng / (double)nlng + Pi; // add pi so texture wraps at +-180°
+	double lat, lng = Pi2 * ilng / nlng + PI; // add pi so texture wraps at +-180°
 	double slng = sin(lng), clng = cos(lng);
 	MATRIX4 lrot = { clng,0,slng,0,  0,1.0,0,0,  -slng,0,clng,0,  0,0,0,1.0 };
 

@@ -681,7 +681,7 @@ const MESHHANDLE oapi::CelestialSphere::GridLabelMesh()
 		for (int i = 1; i <= 11; i++) {
 			int vofs = (i - 1) * 4;
 			NTVERTEX* v0 = evtx + vofs;
-			double theta = Pi * (1.0 - i / 12.0) - 0.001;
+			double theta = PI * (1.0 - i / 12.0) - 0.001;
 			double x0 = sin(theta);
 			double y0 = cos(theta);
 			double dx = -y0 * ticksize_v;

@@ -211,8 +211,8 @@ void Instrument_OPlaneAlign::UpdateDraw (oapi::Sketchpad *skp)
 	double cosp = dot(nd, sp);
 	double Aan = acos(cosp);
 	if (dot(nm1, cross(nd, sp)) < 0) Aan = Pi2 - Aan; // ascending node is behind us
-	double Adn = posangle(Aan + Pi);
-	double Aan_signed = (Aan < Pi ? Aan : Pi2 - Aan);
+	double Adn = posangle(Aan + PI);
+	double Aan_signed = (Aan < PI ? Aan : Pi2 - Aan);
 
 	// true anomalies of ascending and descending node
 	double trs = shpel->TrueAnm();
@@ -232,7 +232,7 @@ void Instrument_OPlaneAlign::UpdateDraw (oapi::Sketchpad *skp)
 	double vsurf;
 	if (mode == SURFACE) { // modify timings assuming we are sitting on the surface
 		have_intersection = GetTimingsFromSurface(Tan, Aan, Tdn, Adn, vsurf);
-		Aan_signed = (Aan < Pi ? Aan : Pi2 - Aan);
+		Aan_signed = (Aan < PI ? Aan : Pi2 - Aan);
 	}
 
 	bool an_is_next = (have_intersection ? Tan < Tdn : true);

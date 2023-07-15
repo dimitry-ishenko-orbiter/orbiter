@@ -246,7 +246,7 @@ int TileManager2<CloudTile>::Coverage (double latmin, double latmax, double lngm
 	double crot = cbody->CloudRotationAngle();
 	lngmin = lngmin + crot;
 	lngmax = lngmax + crot;
-	if (lngmin > Pi) {
+	if (lngmin > PI) {
 		lngmin -= Pi2;
 		lngmax -= Pi2;
 	}

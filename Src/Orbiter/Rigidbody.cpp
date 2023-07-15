@@ -276,7 +276,7 @@ void RigidBody::Update (bool force)
 		// Limit angular velocity - this code is intended to prevent
 		// numerical instabilities in the angular integration to
 		// leading to a velocity explosion - a last resort
-		const double vmag_max = 100.0*Pi; // limit angular velocities to 100Hz - make user-definable!
+		const double vmag_max = 100 * PI; // limit angular velocities to 100Hz - make user-definable!
 		extern int errno;
 		errno = 0;
 		double vmag = len(s1->omega);

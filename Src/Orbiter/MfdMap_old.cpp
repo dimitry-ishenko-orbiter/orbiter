@@ -453,9 +453,9 @@ void Instrument_MapOld::LoadMap (Planet *p)
 				double lng, lat;
 				Base *base = p->GetBase(j);
 				base->EquPos (lng, lat);
-				if (lng >= Pi) lng -= Pi2;
-				x = (int)(mapw * (lng+Pi)/Pi2);
-				y = (int)((0.5-lat/Pi)*maph);
+				if (lng >= PI) lng -= Pi2;
+				x = mapw * (lng + PI) / Pi2;
+				y = (0.5 - lat / PI) * maph;
 				skp->Rectangle (x-2, y-2, x+3, y+3);
 			}
 			gc->clbkReleaseSketchpad (skp);
@@ -513,9 +513,9 @@ void Instrument_MapOld::ToggleTrack ()
 
 void Instrument_MapOld::CalcCoords (double lng, double lat, int &x, int &y)
 {
-	if (lng >= Pi) lng -= Pi2;
-	x = (int)(mapw * (lng+Pi)/Pi2);
-	y = (int)((0.5-lat/Pi)*maph);
+	if (lng >= PI) lng -= Pi2;
+	x = mapw * (lng + PI) / Pi2;
+	y = (0.5 - lat / PI) * maph;
 }
 
 void Instrument_MapOld::CalcTargetCoords()
@@ -556,7 +556,7 @@ void Instrument_MapOld::CalcOrbitProj (const Elements *el, const Planet *planet,
 	for (i = 0; i < npt05; i++) {
 		rl = mul(R, VECTOR3{cosp[i], 0, sinp[i]});
 		x = rl.x, y = rl.y, z = rl.z;
-		lng = atan2 (z,x) + Pi;  // maps start at -Pi (180°W)
+		lng = std::atan2(z, x) + PI;  // maps start at -Pi (180°W)
 		lat = atan(y/std::hypot(x,z));
 		sp[i].x = (int)(lng*f1);
 		if ((sp[i+npt05].x = sp[i].x + mapw05) >= mapw) sp[i+npt05].x -= mapw;
@@ -587,11 +587,11 @@ bool Instrument_MapOld::CalcIntersect (const Elements *el, const Planet *planet,
 	VECTOR3 pos;
 	el->Pol2Crt (rad, ta, pos);
 	planet->GlobalToEquatorial (pos+planet->GPos(), lng, lat, r);
-	is1->x = (int)((lng+Pi)*f1);
+	is1->x = (lng + PI) * f1;
 	is1->y = yofs - (int)(lat*f1);
 	el->Pol2Crt (rad, -ta, pos);
 	planet->GlobalToEquatorial (pos+planet->GPos(), lng, lat, r);
-	is2->x = (int)((lng+Pi)*f1);
+	is2->x = (lng + PI) * f1;
 	is2->y = yofs - (int)(lat*f1);
 	return true;
 }

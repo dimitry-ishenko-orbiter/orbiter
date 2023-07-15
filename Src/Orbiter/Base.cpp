@@ -140,7 +140,7 @@ Base::Base (char *fname, Planet *_planet, double _lng, double _lat)
 				}
 				else rwy[nrwy].ils1 = 0;
 				if (float freq = prwy->GetILSfreq(1)) {
-					navlist.AddNav (rwy[nrwy].ils2 = new Nav_ILS (this, posangle (rwy[nrwy].appr1+Pi), rwy[nrwy].lng2, rwy[nrwy].lat2, freq)); TRACENEW
+					navlist.AddNav(rwy[nrwy].ils2 = new Nav_ILS(this, posangle(rwy[nrwy].appr1 + PI), rwy[nrwy].lng2, rwy[nrwy].lat2, freq)); TRACENEW
 				}
 				else rwy[nrwy].ils2 = 0;
 				nrwy++;
@@ -373,7 +373,7 @@ bool Base::InitSurfaceTiles () const
 			if (south) alat = -alat - 1;
 			CreateSpherePatch (*mesh, n4, n, alat, 4, 4, false, true);
 			mesh->Scale (r, r, r);
-			if (south) mesh->Rotate (Mesh::ROTATE_X, (float)Pi);
+			if (south) mesh->Rotate(Mesh::ROTATE_X, PI);
 			mesh->Rotate (Mesh::ROTATE_Y, (float)(Pi05*(tile[i].ilng + (south ? 1:0)))/(float)n);
 			mesh->Translate (-r*ctht*cphi, -r*stht, -r*ctht*sphi);
 			mesh->Transform (R);

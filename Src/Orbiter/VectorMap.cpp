@@ -84,7 +84,7 @@ void VectorMap::SetDefaults ()
 	cw = ch = 0;
 	cntx = cnty = 0;
 	lngc = latc = 0.0;
-	dlng = Pi, dlat = Pi05;
+	dlng = PI, dlat = Pi05;
 	zoom = 1.0;
 	scalefac = 1.0;
 	labelsize = 9;
@@ -377,8 +377,8 @@ void VectorMap::SetMapArea (double lngcnt, double latcnt, double lngext, double 
 
 void VectorMap::SetCenter (double lngcnt, double latcnt)
 {
-	while (lngcnt < -Pi) lngcnt += Pi2;
-	while (lngcnt >= Pi) lngcnt -= Pi2;
+	while (lngcnt < -PI) lngcnt += Pi2;
+	while (lngcnt >= PI) lngcnt -= Pi2;
 	lngc = lngcnt;
 	latc = latcnt;
 
@@ -400,8 +400,8 @@ void VectorMap::SetZoom (double newzoom)
 	zoom = newzoom;
 	double scale = min (cw, ch*2);
 	scalefac = zoom*scale/Pi2;
-	dlng = cw*Pi/(zoom*scale);
-	dlat = ch*Pi/(zoom*scale);
+	dlng = cw * PI / (zoom * scale);
+	dlat = ch * PI / (zoom * scale);
 
 	lngmin = lngc-dlng;
 	lngmax = lngc+dlng;
@@ -525,8 +525,8 @@ bool VectorMap::GetObjPos (const OBJTYPE &obj, double &lng, double &lat)
 bool VectorMap::GetMapPos (double lng, double lat, int &x, int &y) const
 {
 	if (lat < latmin || lat > latmax) return false;
-	if      (lng > lngc+Pi) lng -= Pi2;
-	else if (lng < lngc-Pi) lng += Pi2;
+	if      (lng > lngc + PI) lng -= Pi2;
+	else if (lng < lngc - PI) lng += Pi2;
 	if (lng < lngmin || lng > lngmax) return false;
 	x = cntx + (int)((lng-lngc)*scalefac);
 	y = cnty - (int)((lat-latc)*scalefac);
@@ -786,8 +786,8 @@ void VectorMap::DrawGridlines ()
 	const double eps = 1e-8;
 	double lat0 = max(latmin,-Pi05);
 	double lat1 = min(latmax, Pi05);
-	double lng0 = max(lngmin, lngc-Pi);
-	double lng1 = min(lngmax, lngc+Pi);
+	double lng0 = max(lngmin, lngc - PI);
+	double lng1 = min(lngmax, lngc + PI);
 	int x, y;
 	int x0 = mapx(lng0), x1 = mapx(lng1);
 	int y0 = mapy(lat0), y1 = mapy(lat1);
@@ -1621,7 +1621,7 @@ double Groundtrack::VtxDst (const VPointGT &vp1, const VPointGT &vp2)
 {
 	double dlat = fabs(vp1.lat - vp2.lat);
 	double dlng = fabs(vp1.lng - vp2.lng);
-	if (dlng > Pi) dlng = Pi2-dlng;
+	if (dlng > PI) dlng = Pi2 - dlng;
 	return std::hypot (dlng, dlat);
 }
 

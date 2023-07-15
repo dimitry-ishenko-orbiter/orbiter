@@ -152,11 +152,11 @@ void Instrument_HSI::UpdateDraw (oapi::Sketchpad *skp)
 			if (planet) adist *= planet->Size();
 			brg = posangle (bdir);
 			bdir -= hsi[i].obs;
-			if      (bdir <  -Pi) bdir += Pi2;
-			else if (bdir >=  Pi) bdir -= Pi2;
+			if      (bdir <  -PI) bdir += Pi2;
+			else if (bdir >=  PI) bdir -= Pi2;
 			crsdev = bdir;
-			if      (crsdev < -Pi05) crsdev = -Pi-crsdev;
-			else if (crsdev >= Pi05) crsdev =  Pi-crsdev;
+			if      (crsdev < -Pi05) crsdev = -PI - crsdev;
+			else if (crsdev >= Pi05) crsdev =  PI - crsdev;
 			if (bglideslope) {
 				double dst = cos(brg-apprd) * adist;
 				slope = atan2 (sp->alt, dst);

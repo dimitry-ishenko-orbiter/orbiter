@@ -471,7 +471,7 @@ void Mesh::CalcTexCoords (DWORD grp)
 
 	int i, nv = Grp[grp].nVtx;
 	D3DVERTEX *vtx = Grp[grp].Vtx;
-	double ipi = 1.0/Pi, i2pi = 0.5/Pi;
+	double ipi = 1 / PI, i2pi = 0.5 / PI;
 
 	for (i = 0; i < nv; i++) {
 		D3DVECTOR pos = {vtx[i].x, vtx[i].y, vtx[i].z};

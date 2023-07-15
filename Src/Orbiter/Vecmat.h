@@ -4,6 +4,7 @@
 #ifndef __VECMAT_H
 #define __VECMAT_H
 
+#include "math.hpp"
 #include "vector.hpp"
 
 #include <math.h>
@@ -13,13 +14,12 @@
 // =======================================================================
 // Some useful constants
 
-const double Pi    = 3.14159265358979323846;
 const double Pi2   = 6.28318530717958647693;
 const double Pi05  = 1.57079632679489661923;
 const double Pi15  = 4.71238898038468985769;
 const double Pi025 = 0.785398163397448309615;
-const double _RAD_   = Pi/180.0;
-const double _DEG_   = 180.0/Pi;
+const double _RAD_   = PI / 180;
+const double _DEG_   = 180 / PI;
 const double LOG2  = 1.0/log(2.0); // conversion factor from log->log2
 
 inline double Rad (double deg) { return _RAD_*deg; }
@@ -54,8 +54,8 @@ inline double diffangle (double a1, double a2)
 {
 	a1 = fmod (a1, Pi2); if (a1 < 0) a1 += Pi2;
 	a2 = fmod (a2, Pi2); if (a2 < 0) a2 += Pi2;
-	if      (a1-a2 > Pi) a2 += Pi2;
-	else if (a2-a1 > Pi) a1 += Pi2;
+	if      (a1 - a2 > PI) a2 += Pi2;
+	else if (a2 - a1 > PI) a1 += Pi2;
 	return a1-a2;
 }
 

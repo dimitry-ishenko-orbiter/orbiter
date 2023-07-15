@@ -369,7 +369,7 @@ void Vessel::DefaultGenericCaps ()
 	camdir0            = {0, 0, 1}; // "forward"
 	camtilt0           = 0.0;
 	camcatchangle      = RAD*5.0;
-	camdp_left = camdp_right = 0.8*Pi;
+	camdp_left = camdp_right = 0.8 * PI;
 	camdt_up   = camdt_down  = 0.8*Pi05;
 
 	// Default (arbitrary) touchdown points

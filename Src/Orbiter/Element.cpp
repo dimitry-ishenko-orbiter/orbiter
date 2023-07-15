@@ -249,7 +249,7 @@ bool Elements::AscendingNode (VECTOR3 &asc) const
 
 bool Elements::DescendingNode (VECTOR3 &desc) const
 {
-	double d = Rdist (priv_omega+Pi);
+	double d = Rdist(priv_omega + PI);
 	desc = priv_N * -d;
 	return (d >= 0.0);
 }
@@ -438,7 +438,7 @@ void Elements::Calculate (const VECTOR3 &R, const VECTOR3 &V, double simt)
 	if (e > E_CIRCLE_LIMIT) {
 		if (i > I_NOINC_LIMIT) {
 			double arg = dot(priv_N, priv_E) / e;
-			if      (arg < -1.0) priv_omega = Pi;
+			if      (arg < -1.0) priv_omega = PI;
 			else if (arg >  1.0) priv_omega = 0.0;
 			else                 priv_omega = acos (arg);
 			if (priv_E.y < 0.0) priv_omega = Pi2-priv_omega;
@@ -492,7 +492,7 @@ void Elements::Calculate (const VECTOR3 &R, const VECTOR3 &V, double simt)
 		// eccentric anomaly
 		double costra = cos (priv_tra);
 		priv_ea = acosh ((e + costra) / (1.0 + e * costra));
-		if (priv_tra >= Pi) priv_ea = -priv_ea;
+		if (priv_tra >= PI) priv_ea = -priv_ea;
 
 		// mean anomaly
 		priv_ma = e*sinh(priv_ea) - priv_ea;

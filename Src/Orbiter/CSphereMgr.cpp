@@ -421,7 +421,7 @@ void CSphereManager::ProcessTile (int lvl, int hemisp, int ilat, int nlat, int i
 
 MATRIX4 CSphereManager::WorldMatrix (int ilng, int nlng, int ilat, int nlat)
 {
-	double lng = Pi2 * (double)ilng/(double)nlng + Pi; // add pi so texture wraps at +-180°
+	double lng = Pi2 * ilng / nlng + PI; // add pi so texture wraps at +-180°
 	double slng = sin(lng), clng = cos(lng);
 	MATRIX4 lrot = {clng,0,slng,0,  0,1.0,0,0,  -slng,0,clng,0,  0,0,0,1.0};
 	return mul(lrot,RenderParam.dwmat);
@@ -473,8 +473,8 @@ void CSphereManager::RenderTile (int lvl, int hemisp, int ilat, int nlat, int il
 
 VECTOR3 CSphereManager::TileCentre (int hemisp, int ilat, int nlat, int ilng, int nlng)
 {
-	double cntlat = Pi05 * ((double)ilat+0.5)/(double)nlat,      slat = sin(cntlat), clat = cos(cntlat);
-	double cntlng = Pi2  * ((double)ilng+0.5)/(double)nlng + Pi, slng = sin(cntlng), clng = cos(cntlng);
+	double cntlat = Pi05 * (ilat + 0.5) / nlat,      slat = std::sin(cntlat), clat = std::cos(cntlat);
+	double cntlng = Pi2  * (ilng + 0.5) / nlng + PI, slng = std::sin(cntlng), clng = std::cos(cntlng);
 	return hemisp ? VECTOR3{clat * clng, -slat, -clat * slng}
 				  : VECTOR3{clat * clng,  slat,  clat * slng};
 }
@@ -485,7 +485,7 @@ void CSphereManager::TileExtents (int hemisp, int ilat, int nlat, int ilng, int 
 {
 	lat1 = Pi05 * (double)ilat/(double)nlat;
 	lat2 = lat1 + Pi05/(double)nlat;
-	lng1 = Pi2 * (double)ilng/(double)nlng + Pi;
+	lng1 = Pi2 * ilng / nlng + PI;
 	lng2 = lng1 + Pi2/nlng;
 	if (hemisp) {
 		double tmp = lat1; lat1 = -lat2; lat2 = -tmp;

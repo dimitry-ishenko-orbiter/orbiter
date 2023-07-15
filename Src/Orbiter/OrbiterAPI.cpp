@@ -807,7 +807,7 @@ DLLEXPORT VECTOR3 oapiGetWindVector (OBJHANDLE hPlanet, double lng, double lat, 
 
 DLLEXPORT double oapiGetInducedDrag (double cl, double A, double eps)
 {
-	return (cl*cl)/(Pi*A*eps);
+	return (cl * cl) / (PI * A * eps);
 }
 
 DLLEXPORT double oapiGetWaveDrag (double M, double M1, double M2, double M3, double cmax)

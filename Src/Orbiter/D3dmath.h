@@ -88,7 +88,6 @@ inline void SetD3DTranslation (D3DMATRIX &a, const VECTOR3 &t)
 //-----------------------------------------------------------------------------
 // Useful Math constants
 //-----------------------------------------------------------------------------
-const FLOAT g_PI       =  3.14159265358979323846f; // Pi
 const FLOAT g_2_PI     =  6.28318530717958623200f; // 2 * Pi
 const FLOAT g_PI_DIV_2 =  1.57079632679489655800f; // Pi / 2
 const FLOAT g_PI_DIV_4 =  0.78539816339744827900f; // Pi / 4

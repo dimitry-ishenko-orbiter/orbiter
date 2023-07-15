@@ -1074,7 +1074,7 @@ void Camera::Update ()
 			double ph = atan2 (-rdir.x, rdir.z);
 			double dph = fabs(ph-ephi);
 			if (allow_invert && dph >= Pi05 && dph < 3.0*Pi05)
-				ph += Pi, th = Pi-th; // camera is upside-down - a bit hacky!
+				ph += PI, th = PI - th; // camera is upside-down - a bit hacky!
 			SetRelPos (rdist, ph, th);
 			gspos = gdir * (-rdist * target->Size());
 			gpos = gspos + target->GPos();
@@ -1182,7 +1182,7 @@ void Camera::Update ()
 		if (dphi || dtht) {
 			double dp_left, dp_right, dt_up, dt_down;
 			g_focusobj->CamRange (dp_left, dp_right, dt_up, dt_down);
-			const double phirange = 0.8*Pi;   // make panel-dependent!
+			const double phirange = 0.8 * PI; // make panel-dependent!
 			const double thtrange = 0.8*Pi05; // make panel-dependent!
 
 			vp = dphi*td.iSysDT;

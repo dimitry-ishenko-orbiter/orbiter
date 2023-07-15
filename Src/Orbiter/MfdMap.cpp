@@ -200,7 +200,7 @@ bool Instrument_Map::KeyImmediate (char *kstate)
 	}
 	if (KEYDOWN (kstate, OAPI_KEY_MINUS)) { // scroll down
 		if (!track && BufKey (OAPI_KEY_MINUS, 0.05)) {
-			map->SetCenter (map->CntLng(), min (Pi, map->CntLat()+step));
+			map->SetCenter(map->CntLng(), min(PI, map->CntLat() + step));
 			scroll_tp = t;
 			Refresh();
 		}
@@ -208,7 +208,7 @@ bool Instrument_Map::KeyImmediate (char *kstate)
 	}
 	if (KEYDOWN (kstate, OAPI_KEY_EQUALS)) { // scroll up
 		if (!track && BufKey (OAPI_KEY_EQUALS, 0.05)) {
-			map->SetCenter (map->CntLng(), max (-Pi, map->CntLat()-step));
+			map->SetCenter(map->CntLng(), max(-PI, map->CntLat() - step));
 			scroll_tp = t;
 			Refresh();
 		}

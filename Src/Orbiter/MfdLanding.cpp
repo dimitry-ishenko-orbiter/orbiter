@@ -172,8 +172,8 @@ void Instrument_Landing::UpdateDraw (oapi::Sketchpad *skp)
 	hvel = mul(sp->L2H, hvel);
 	hspd = std::hypot (hvel.x, hvel.z);
 	vdir = atan2 (hvel.x, hvel.z) - sp->dir;
-	if      (vdir <= -Pi) vdir += Pi2;
-	else if (vdir >=  Pi) vdir -= Pi2;
+	if      (vdir <= -PI) vdir += Pi2;
+	else if (vdir >=  PI) vdir -= Pi2;
 	sprintf (cbuf, "HSPD%s", FloatStr(hspd));
 	skp->Text (x, ch*3, cbuf, strlen(cbuf));
 

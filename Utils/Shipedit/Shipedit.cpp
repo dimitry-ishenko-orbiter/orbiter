@@ -581,8 +581,8 @@ bool inside (int ntri, const TriParam *pp, const D3DVECTOR &pos)
 	float t;
 
 	// find a search direction
-	double phi = rand2()*Pi*2.0;
-	double tht = 0.5*Pi-acos(rand2()*2.0-1.0);
+	double phi = rand2() * PI * 2;
+	double tht = 0.5 * PI - std::acos(rand2() * 2 - 1);
 	dir.x = (float)(cos(tht)*cos(phi));
 	dir.y = (float)(cos(tht)*sin(phi));
 	dir.z = (float)sin(tht);

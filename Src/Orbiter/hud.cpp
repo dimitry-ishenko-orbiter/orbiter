@@ -1659,8 +1659,8 @@ void HUD_Surface::Display (oapi::Sketchpad *skp)
 		base->EquPos (blng, blat);
 		Orthodome (sp->lng, sp->lat, blng, blat, adist, bdir);
 		ddir = bdir - sp->dir;
-		if      (ddir <= -Pi) ddir += Pi2;
-		else if (ddir >=  Pi) ddir -= Pi2;
+		if      (ddir <= -PI) ddir += Pi2;
+		else if (ddir >=  PI) ddir -= Pi2;
 		if (ddir > scalerange) {
 			x = HRES05 + spec.W/5 + 5;
 			skp->MoveTo (x, 10); skp->LineTo (x, 22);

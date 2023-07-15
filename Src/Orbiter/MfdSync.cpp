@@ -139,7 +139,7 @@ void Instrument_OSync::UpdateDraw (oapi::Sketchpad *skp)
 			rlng = asin(sinr);
 			cosr = cos(rlng);
 			// resolve ambiguity in sine
-			if (fabs (A*cosr + B*sinr + C) > fabs (-A*cosr + B*sinr + C)) rlng = Pi-rlng, cosr = -cosr;
+			if (std::abs(A * cosr + B * sinr + C) > std::abs(-A * cosr + B * sinr + C)) rlng = PI - rlng, cosr = -cosr;
 		} else {
 			skp->Text (x, y, "No intersection", 15); y += ch;
 			return;
@@ -149,13 +149,13 @@ void Instrument_OSync::UpdateDraw (oapi::Sketchpad *skp)
 		sinr = 0.0, cosr = 1.0, rlng = 0.0;
 		break;
 	case MODE_SHIP_AA:
-		sinr = 0.0, cosr = -1.0, rlng = Pi;
+		sinr = 0.0, cosr = -1.0, rlng = PI;
 		break;
 	case MODE_TGT_PA:
 		rlng = posangle (domega), sinr = sin(rlng), cosr = cos(rlng);
 		break;
 	case MODE_TGT_AA:
-		rlng = posangle (domega+Pi), sinr = sin(rlng), cosr = cos(rlng);
+		rlng = posangle(domega + PI), sinr = std::sin(rlng), cosr = std::cos(rlng);
 		break;
 	case MODE_MANUAL:
 		rlng = man_rlng, sinr = man_sinr, cosr = man_cosr;

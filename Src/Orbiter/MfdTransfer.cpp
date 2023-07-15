@@ -230,7 +230,7 @@ void Instrument_Transfer::UpdateDraw (oapi::Sketchpad *skp)
 			rlng = asin(sinr);
 			cosr = cos(rlng);
 			// resolve ambiguity in sine
-			if (fabs (A*cosr + B*sinr + C) > fabs (-A*cosr + B*sinr + C)) rlng = Pi-rlng, cosr = -cosr;
+			if (std::abs(A * cosr + B * sinr + C) > std::abs(-A * cosr + B * sinr + C)) rlng = PI - rlng, cosr = -cosr;
 			VECTOR3 v = mul(*workr, VECTOR3{cosr, 0, sinr});
 			skp->SetPen (draw[2][1].solidpen);
 			skp->Line (ICNTX, ICNTY, ICNTX+(int)(v.x*pixrad), ICNTY-(int)(v.z*pixrad));

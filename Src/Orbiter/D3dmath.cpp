@@ -406,8 +406,8 @@ VOID D3DMath_QuaternionSlerp( FLOAT& Qx, FLOAT& Qy, FLOAT& Qz, FLOAT& Qw,
         By =  Ax;
         Bz = -Aw;
         Bw =  Az;
-        fScale1 = (FLOAT)sin( g_PI * (0.5f - fAlpha) );
-        fScale2 = (FLOAT)sin( g_PI * fAlpha );
+        fScale1 = std::sin(PI * (0.5f - fAlpha));
+        fScale2 = std::sin(PI * fAlpha);
     }
 
     Qx = fScale1 * Ax + fScale2 * Bx;

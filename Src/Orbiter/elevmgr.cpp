@@ -69,8 +69,8 @@ bool ElevationManager::TileIdx (double lat, double lng, int lvl, int *ilat, int 
 	int nlat = 1 << lvl;
 	int nlng = 2 << lvl;
 
-	*ilat = (int)((Pi05-lat)/Pi * nlat);
-	*ilng = (int)((lng+Pi)/Pi2 * nlng);
+	*ilat = (Pi05 - lat) / PI * nlat;
+	*ilng = (lng + PI) / Pi2 * nlng;
 	return true;
 }
 
@@ -312,10 +312,10 @@ double ElevationManager::Elevation (double lat, double lng, int reqlvl, std::vec
 					int nlng = 2 << lvl;
 					t->lvl = lvl;
 					t->tgtlvl = reqlvl;
-					t->latmin = (0.5-(double)(ilat+1)/double(nlat))*Pi;
-					t->latmax = (0.5-(double)ilat/double(nlat))*Pi;
-					t->lngmin = (double)ilng/(double)nlng*Pi2 - Pi;
-					t->lngmax = (double)(ilng+1)/(double)nlng*Pi2 - Pi;
+					t->latmin = PI * 0.5 - PI * (ilat + 1.0) / nlat;
+					t->latmax = PI * 0.5 - PI * ilat / nlat;
+					t->lngmin = Pi2 * ilng / nlng - PI;
+					t->lngmax = Pi2 * (ilng + 1.0) / nlng - PI;
 					// still need to store emin and emax
 					auto gc = g_pOrbiter->GetGraphicsClient();
 					if (gc) gc->clbkFilterElevation((OBJHANDLE)cbody, ilat, ilng, lvl, elev_res, t->data);
@@ -433,8 +433,8 @@ void ElevationManager::ElevationGrid (int ilat, int ilng, int lvl, int pilat, in
 	double lng, lat, e;
 	double latmin = Pi05 * (double)(nlat-2*ilat-2)/(double)nlat;
 	double latmax = Pi05 * (double)(nlat-2*ilat)/(double)nlat;
-	double lngmin = Pi * (double)(2*ilng-nlng)/(double)nlng;
-	double lngmax = Pi * (double)(2*ilng-nlng+2)/(double)nlng;
+	double lngmin = PI * (2 * ilng - nlng) / nlng;
+	double lngmax = PI * (2 * ilng - nlng + 2) / nlng;
 	double dlat = (latmax-latmin)/elev_grid;
 	double dlng = (lngmax-lngmin)/elev_grid;
 
@@ -442,8 +442,8 @@ void ElevationManager::ElevationGrid (int ilat, int ilng, int lvl, int pilat, in
 	int pnlat = 1 << plvl;
 	double platmin = Pi05 * (double)(pnlat-2*pilat-2)/(double)pnlat;
 	double platmax = Pi05 * (double)(pnlat-2*pilat)/(double)pnlat;
-	double plngmin = Pi * (double)(2*pilng-pnlng)/(double)pnlng;
-	double plngmax = Pi * (double)(2*pilng-pnlng+2)/(double)pnlng;
+	double plngmin = PI * (2 * pilng - pnlng) / pnlng;
+	double plngmax = PI * (2 * pilng - pnlng + 2) / pnlng;
 	int plat0 = -1000, plng0 = -1000;
 	bool pcelldiag = false;
 
@@ -538,8 +538,8 @@ void ElevationManager::ElevationGrid(int ilat, int ilng, int lvl, int pilat, int
 	double lng, lat, e;
 	double latmin = Pi05 * (double)(nlat - 2 * ilat - 2) / (double)nlat;
 	double latmax = Pi05 * (double)(nlat - 2 * ilat) / (double)nlat;
-	double lngmin = Pi * (double)(2 * ilng - nlng) / (double)nlng;
-	double lngmax = Pi * (double)(2 * ilng - nlng + 2) / (double)nlng;
+	double lngmin = PI * (2 * ilng - nlng) / nlng;
+	double lngmax = PI * (2 * ilng - nlng + 2) / nlng;
 	double dlat = (latmax - latmin) / elev_grid;
 	double dlng = (lngmax - lngmin) / elev_grid;
 
@@ -547,8 +547,8 @@ void ElevationManager::ElevationGrid(int ilat, int ilng, int lvl, int pilat, int
 	int pnlat = 1 << plvl;
 	double platmin = Pi05 * (double)(pnlat - 2 * pilat - 2) / (double)pnlat;
 	double platmax = Pi05 * (double)(pnlat - 2 * pilat) / (double)pnlat;
-	double plngmin = Pi * (double)(2 * pilng - pnlng) / (double)pnlng;
-	double plngmax = Pi * (double)(2 * pilng - pnlng + 2) / (double)pnlng;
+	double plngmin = PI * (2 * pilng - pnlng) / pnlng;
+	double plngmax = PI * (2 * pilng - pnlng + 2) / pnlng;
 	int plat0 = -1000, plng0 = -1000;
 	bool pcelldiag = false;
 
