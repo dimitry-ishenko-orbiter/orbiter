@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.19)
 # Set the project name
 project (Orbiter VERSION 21.7.24)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
